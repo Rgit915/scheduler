@@ -7,6 +7,7 @@ import Header from "components/Appointment/Header";
 import Empty from "components/Appointment/Empty";
 import Show from "components/Appointment/Show";
 import useVisualMode from "hooks/useVisualMode";
+import Form from "./Form";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -35,7 +36,7 @@ return (
     {mode === CREATE && (
         <Form
           interviewers={props.interviewers} // Pass interviewers prop to Form
-          onCancel={back}
+          onCancel={back} //pass the back function as onCancel
         />
       )}
   </article>
