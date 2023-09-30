@@ -10,6 +10,8 @@ import useVisualMode from "hooks/useVisualMode";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
+const CREATE = "CREATE";
+
 
 export default function Appointment(props) {
 
@@ -19,19 +21,17 @@ const initialMode = props.interview ? SHOW : EMPTY;
 // Use the useVisualMode hook with the initialMode
 const { mode, transition, back } = useVisualMode(initialMode);
 
-  return (
-    <article className="appointment" data-testid="appointment">
-      <Header time={props.time} />
-      {mode === SHOW ?
-        <Show
-          student={props.interview.student}
-          interviewer={props.interview.interviewer}
-          onDelete={() => console.log("CONFIRM")}
-          onEdit={() => console.log("EDIT")}
-          mode={SHOW}
-        />
-        :
-        <Empty onAdd={() => console.log("CREATE")} mode={EMPTY} />}
-    </article>
-  );
+return (
+  <article className="appointment" data-testid="appointment">
+    <Header time={props.time} />
+    {/* Render components based on the mode */}
+    {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} mode={EMPTY} />}
+    {mode === SHOW && (
+      <Show
+        student={props.interview.student}
+        interviewer={props.interview.interviewer}
+      />
+    )}
+  </article>
+);
 }
