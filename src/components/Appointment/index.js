@@ -32,6 +32,12 @@ return (
         interviewer={props.interview.interviewer}
       />
     )}
+    {mode === CREATE && (
+        <Form
+          interviewers={props.interviewers} // Pass interviewers prop to Form
+          onCancel={back}
+        />
+      )}
   </article>
 );
 }
