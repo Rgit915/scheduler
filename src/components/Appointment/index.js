@@ -22,6 +22,28 @@ const initialMode = props.interview ? SHOW : EMPTY;
 // Use the useVisualMode hook with the initialMode
 const { mode, transition, back } = useVisualMode(initialMode);
 
+//save appointments
+function save(name, interviewer) {
+  const interview = {
+    student: name,
+    interviewer
+  };
+
+  transition(SAVING);
+
+  props
+    .bookInterview(props.id, interview)
+    .then(() => transition(SHOW))
+    .catch(error => transition(ERROR_SAVE, true));
+}
+
+function destroy() {
+  transition(DELETING, true);
+  props
+    .cancelInterview(props.id)
+    .then(() => transition(EMPTY))
+    .catch(error => transition(ERROR_DELETE, true));
+}
 return (
   <article className="appointment" data-testid="appointment">
     <Header time={props.time} />
@@ -37,6 +59,7 @@ return (
         <Form
           interviewers={props.interviewers} // Pass interviewers prop to Form
           onCancel={back} //pass the back function as onCancel
+          onSave={save}
         />
       )}
   </article>
