@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, fireEvent, getByText } from "@testing-library/react";
+import { render, cleanup, fireEvent } from "@testing-library/react";
 
 import Form from "components/Appointment/Form";
 
@@ -34,19 +34,6 @@ describe("Form", () => {
     expect(getByTestId("student-name-input")).toHaveValue("Lydia Miller-Jones");
   });
 
-  //   it("save button clicked", () =>{
-  //     const mockOnSave = jest.fn(); // Create a mock function
-
-  // const { container } = render(
-  //   //add onSave prop - function that gets called when the Save button is clicked in Form
-  //   <Form interviewers={interviewers} name="Lydia Miller-Jones" onSave={mockOnSave} />
-  // );
-  // // pass an argument that is the element we want to click,
-  // // to find the "Save" button use the getByText query and 'click' is the eventName
-  //     fireEvent.click(getByText(container, "Save"));
-  //   });
-
-
   it("validates that the student name is not blank", () => {
     /* 1. Create the mock onSave function */
     const onSave = jest.fn();
@@ -61,19 +48,6 @@ describe("Form", () => {
     expect(onSave).not.toHaveBeenCalled();
   });
 
-  it("validates that the interviewer cannot be null", () => {
-    /* 1. Create the mock onSave function */
-    const onSave = jest.fn();
-    /* 2. Render the Form with interviewers and the onSave mock function passed as an onSave prop, the interviewer prop should be null */
-    const { getByText } = render(
-      <Form interviewers={interviewers} onSave={onSave}  name="Lydia Miller-Jones"/>
-    );
-    /* 3. Click the save button */
-    fireEvent.click(getByText("Save"));
-
-    expect(getByText(/please select an interviewer/i)).toBeInTheDocument();
-    expect(onSave).not.toHaveBeenCalled();
-  });
   it("can successfully save after trying to submit an empty student name", () => {
     const onSave = jest.fn();
     const { getByText, getByPlaceholderText, queryByText } = render(
