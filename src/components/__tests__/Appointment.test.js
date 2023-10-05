@@ -63,5 +63,8 @@ describe("Application", () => {
     fireEvent.click(getByText(appointment, "Save"));
     debug();
     console.log(prettyDOM(appointment));
+
+    //Verify the appointment element contains the text "Saving" immediately after "Save" button is clicked
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
   });
 });
