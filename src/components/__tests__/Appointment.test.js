@@ -7,7 +7,7 @@ import React from "react";
   We import our helper functions from the react-testing-library
   The render function allows us to render Components
 */
-import { render, waitForElement,fireEvent } from "@testing-library/react";
+import { render, waitForElement,fireEvent, getByText, prettyDOM } from "@testing-library/react";
 
 /*
   We import the component that we are testing
@@ -39,11 +39,12 @@ describe("Application", () => {
     it("loads data, books an interview and reduces the spots remaining for the first day by 1", async() =>{
 
       // Render the Application.
-      const {getByText } = render(<Application/>);
+      const {container } = render(<Application/>);
 
       //Wait until the text "Archie Cohen" is displayed.
-      await waitForElement(() => getByText("Archie Cohen"))
+      await waitForElement(() => getByText(container,"Archie Cohen"));
 
-      
+      //call after the data loads
+      console.log(prettyDOM(container));
     });
   });
