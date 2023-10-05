@@ -19,14 +19,14 @@ import Application from "components/Application";
 */
 describe("Appointment", () => {
 
-  it("defaults to Monday and changes the schedule when a new day is selected", () => {
+  it("defaults to Monday and changes the schedule when a new day is selected", async() => {
 
     //create fucntion 'getByText' to query and interact with elements rendered in the component
     const { getByText } = render(<Application/>);
 
     // ensuring that the "Monday" element is present in the rendered component before proceeding with the test.
     // use 'waitForElement' func to wait until "Monday" element is available, once avaialbel continues
-    return waitForElement(() => getByText("Monday")).then(() => {
+    await waitForElement(() => getByText("Monday"));
 
       //click event on the element"Tuesday", used to change the selected day from Monday to Tuesday in appointment schedule
       fireEvent.click(getByText("Tuesday"));
@@ -36,5 +36,3 @@ describe("Appointment", () => {
       expect(getByText("Leopold Silvers")).toBeInTheDocument();
     });
   });
-
-});
