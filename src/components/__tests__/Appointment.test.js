@@ -17,7 +17,7 @@ import Application from "components/Application";
 /*
   A test that renders a React Component
 */
-describe("Appointment", () => {
+describe("Application", () => {
 
   it("defaults to Monday and changes the schedule when a new day is selected", async() => {
 
@@ -34,5 +34,16 @@ describe("Appointment", () => {
       //assertion - checks whether an element with text'Leopold Silvers' is present in the component after click event
       // If it's - it'll pass otherwise -it'll fail
       expect(getByText("Leopold Silvers")).toBeInTheDocument();
+    });
+
+    it("loads data, books an interview and reduces the spots remaining for the first day by 1", async() =>{
+
+      // Render the Application.
+      const {getByText } = render(<Application/>);
+
+      //Wait until the text "Archie Cohen" is displayed.
+      await waitForElement(() => getByText("Archie Cohen"))
+
+      
     });
   });
