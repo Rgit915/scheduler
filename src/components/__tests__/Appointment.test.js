@@ -67,11 +67,25 @@ describe("Application", () => {
 
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
 
-   //use built-in Array.prototype.find method to find specific day node that contains text "Monday"
+    //use built-in Array.prototype.find method to find specific day node that contains text "Monday"
     const dayNode = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
-    
     expect(getByText(dayNode, "no spots remaining")).toBeInTheDocument();
   });
+
+  it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
+    // 1. Render the Application.
+    const { container } = render(<Application />);
+    // 2. Wait until the text "Archie Cohen" is displayed.
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    // 3. Click the "Delete" button on the text " Archie Cohen" appointment.
+    // 4. check that the element with "Are you sure you would like to delete?" text is displayed
+    // 5. Click the "Confrim" button to cancel the appointment
+    // 6.Check that the element with the text "Deleting" is displayed.
+    // 7. wait until the "Add" button on the first empty appointment is displayed
+    // 8. Check that the DayListItem with the text "Monday" also has the text "2 spots remaining".
+  });
+
 });
