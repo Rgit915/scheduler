@@ -19,52 +19,49 @@ import Application from "components/Application";
 */
 describe("Application", () => {
 
-  it("defaults to Monday and changes the schedule when a new day is selected", async() => {
+  it("defaults to Monday and changes the schedule when a new day is selected", async () => {
 
     //create fucntion 'getByText' to query and interact with elements rendered in the component
-    const { getByText } = render(<Application/>);
+    const { getByText } = render(<Application />);
 
     // ensuring that the "Monday" element is present in the rendered component before proceeding with the test.
     // use 'waitForElement' func to wait until "Monday" element is available, once avaialbel continues
     await waitForElement(() => getByText("Monday"));
 
-      //click event on the element"Tuesday", used to change the selected day from Monday to Tuesday in appointment schedule
-      fireEvent.click(getByText("Tuesday"));
+    //click event on the element"Tuesday", used to change the selected day from Monday to Tuesday in appointment schedule
+    fireEvent.click(getByText("Tuesday"));
 
-      //assertion - checks whether an element with text'Leopold Silvers' is present in the component after click event
-      // If it's - it'll pass otherwise -it'll fail
-      expect(getByText("Leopold Silvers")).toBeInTheDocument();
-    });
+    //assertion - checks whether an element with text'Leopold Silvers' is present in the component after click event
+    // If it's - it'll pass otherwise -it'll fail
+    expect(getByText("Leopold Silvers")).toBeInTheDocument();
+  });
 
-    it("loads data, books an interview and reduces the spots remaining for the first day by 1", async() =>{
+  it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
 
-      // Render the Application.
-      const {container } = render(<Application/>);
+    // Render the Application.
+    const { container } = render(<Application />);
 
-      //Wait until the text "Archie Cohen" is displayed.
-      await waitForElement(() => getByText(container,"Archie Cohen"));
-
-    //call after the data loads
-     //console.log(prettyDOM(container));
+    //Wait until the text "Archie Cohen" is displayed.
+    await waitForElement(() => getByText(container, "Archie Cohen"));
 
     /* Use the getAllByTestId query, search for all of the appointments in the container.
      * Store the returned value locally in the test and use prettyDOM to print it.
     */
     const appointments = getAllByTestId(container, "appointment");
-    // console.log(prettyDOM(appointments));
 
     //first element in the appointments array
-    const appointment = getAllByTestId(container, "appointment")[0];
-    //console.log(prettyDOM(appointment));
+    const appointment = appointments[0];
 
     fireEvent.click(getByAltText(appointment, "Add"));
-    //console.log(prettyDOM(getByAltText(container,"Add")));
+
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
       target: { value: "Lydia Miller-Jones" }
     });
+
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     fireEvent.click(getByText(appointment, "Save"));
 
+    console.log(prettyDOM(appointment));
   });
 });
