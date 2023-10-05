@@ -7,7 +7,7 @@ import React from "react";
   We import our helper functions from the react-testing-library
   The render function allows us to render Components
 */
-import { render, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId } from "@testing-library/react";
+import { render, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText } from "@testing-library/react";
 
 /*
   We import the component that we are testing
@@ -45,16 +45,26 @@ describe("Application", () => {
       await waitForElement(() => getByText(container,"Archie Cohen"));
 
     //call after the data loads
-     console.log(prettyDOM(container));
+     //console.log(prettyDOM(container));
 
     /* Use the getAllByTestId query, search for all of the appointments in the container.
      * Store the returned value locally in the test and use prettyDOM to print it.
     */
     const appointments = getAllByTestId(container, "appointment");
-     console.log(prettyDOM(appointments));
+    // console.log(prettyDOM(appointments));
 
     //first element in the appointments array
     const appointment = getAllByTestId(container, "appointment")[0];
-    console.log(prettyDOM(appointment));
+    //console.log(prettyDOM(appointment));
+
+    fireEvent.click(getByAltText(appointment, "Add"));
+    //console.log(prettyDOM(getByAltText(container,"Add")));
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
+    fireEvent.click(getByText(appointment, "Save"));
+
   });
 });
