@@ -61,16 +61,17 @@ describe("Application", () => {
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     fireEvent.click(getByText(appointment, "Save"));
-    //debug();
-
 
     //Verify the appointment element contains the text "Saving" immediately after "Save" button is clicked
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
+
+    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
 
    //use built-in Array.prototype.find method to find specific day node that contains text "Monday"
     const dayNode = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
-    console.log(prettyDOM(dayNode));
+    
+    expect(getByText(dayNode, "no spots remaining")).toBeInTheDocument();
   });
 });
