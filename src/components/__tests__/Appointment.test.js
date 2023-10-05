@@ -7,7 +7,7 @@ import React from "react";
   We import our helper functions from the react-testing-library
   The render function allows us to render Components
 */
-import { render, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText } from "@testing-library/react";
+import { render, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, queryByText } from "@testing-library/react";
 
 /*
   We import the component that we are testing
@@ -61,10 +61,16 @@ describe("Application", () => {
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     fireEvent.click(getByText(appointment, "Save"));
-    debug();
-    console.log(prettyDOM(appointment));
+    //debug();
+
 
     //Verify the appointment element contains the text "Saving" immediately after "Save" button is clicked
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
+
+   //use built-in Array.prototype.find method to find specific day node that contains text "Monday"
+    const dayNode = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+    console.log(prettyDOM(dayNode));
   });
 });
