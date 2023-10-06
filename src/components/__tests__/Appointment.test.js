@@ -3,6 +3,9 @@
 */
 import React from "react";
 
+/* import axios library  */
+import axios from "axios";
+
 /*
   We import our helper functions from the react-testing-library
   The render function allows us to render Components
@@ -144,4 +147,13 @@ describe("Application", () => {
     expect(getByText(dayNode, "1 spot remaining")).toBeInTheDocument();
   });
 
+  /* test number five */
+it("shows the save error when failing to save an appointment", () => {
+  axios.put.mockRejectedValueOnce();
+});
+
+/* test number six */
+it("shows the delete error when failing to delete an existing appointment", () => {
+  axios.delete.mockRejectedValueOnce();
+});
 });
