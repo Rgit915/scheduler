@@ -1,8 +1,7 @@
 
 describe("Appointments", () => {
 
-  it("should book an interview", () => {
-
+  beforeEach(() => {
     /*
 
      If we run the test a second time,
@@ -12,9 +11,16 @@ describe("Appointments", () => {
     */
 
     cy.request("GET", "/api/debug/reset");
+
     //visit the root of the web server, and confirm that the DOM contains the text "Monday"
     cy.visit("/");
+    
     cy.contains("Monday");
+
+
+  });
+
+  it("should book an interview", () => {
 
     //Clicks on the "Add" button in the second appointment
     cy.get("[alt=Add]")
