@@ -41,7 +41,7 @@ describe("Appointments", () => {
     cy.contains(".appointment__card--show", "Sylvia Palmer");
   });
 
-  it.only("should edit an interview", () => {
+  it("should edit an interview", () => {
     // 1. Find and hover over the appointment to reveal the edit button
     //cy.contains(".appointment__card--show", "Archie Cohen").trigger("mouseover");
 
@@ -64,6 +64,34 @@ describe("Appointments", () => {
     cy.contains(".appointment__card--show", "Lydia Miller-Jones");
     cy.contains(".appointment__card--show", "Tori Malcolm");
 
+  });
+
+  it.only("should cancel an interview", () => {
+    //1. vists the root of our web server
+
+    //2. Clicks the delete button for the existing appointment
+    cy.get("[alt=Delete]")
+      .click({ force: true });
+
+    //3. Clicks the confirm button
+    cy.contains("Confirm").click();
+
+    /* 4. Sees that the appointment slot is empty
+         First, check that the "Deleting" indicator should exist.
+         Cypress will make sure that we show the "Deleting" indicator before moving to the next command.*/
+    cy.contains("Deleting").should("exist");
+
+    /*Then check that the "Deleting" indicator should not exist.
+     Cypress will keep checking until we remove the indicator, or reach a timeout.
+      In this case, it waits until we remove the indicator to move on. */
+
+    cy.contains("Deleting").should("not.exist");
+
+    /*Last check that the .appointment__card--show element
+     that contains the text "Archie Cohen" should not exist. */
+
+    cy.contains(".appointment__card--show", "Archie Cohen")
+      .should("not.exist");
   });
 
 });
