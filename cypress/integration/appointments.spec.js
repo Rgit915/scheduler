@@ -3,7 +3,16 @@ describe("Appointments", () => {
 
   it("should book an interview", () => {
 
+    /*
 
+     If we run the test a second time,
+      it will fail because there will already be an appointment in the slot
+       that we try to click. We should use the cy.request(method, url) command
+        to "GET" to "/api/debug/reset" at the beginning of the test function.
+    */
+
+    cy.request("GET", "/api/debug/reset");
+    
     //visit the root of the web server, and confirm that the DOM contains the text "Monday"
     cy.visit("/");
     cy.contains("Monday");
