@@ -12,7 +12,6 @@ describe("Appointments", () => {
     */
 
     cy.request("GET", "/api/debug/reset");
-    
     //visit the root of the web server, and confirm that the DOM contains the text "Monday"
     cy.visit("/");
     cy.contains("Monday");
@@ -31,6 +30,10 @@ describe("Appointments", () => {
     //clicks the save button
     cy.contains("Save").click();
 
+    //verify that we show the student and interviewer names within
+    //an element that has the ".appointment__card--show" class.
+    cy.contains(".appointment__card--show", "Lydia Miller-Jones");
+    cy.contains(".appointment__card--show", "Sylvia Palmer");
   });
 
 
