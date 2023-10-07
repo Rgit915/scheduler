@@ -14,7 +14,6 @@ describe("Appointments", () => {
 
     //visit the root of the web server, and confirm that the DOM contains the text "Monday"
     cy.visit("/");
-    
     cy.contains("Monday");
 
 
@@ -42,6 +41,30 @@ describe("Appointments", () => {
     cy.contains(".appointment__card--show", "Sylvia Palmer");
   });
 
+  it.only("should edit an interview", () => {
+    // 1. Find and hover over the appointment to reveal the edit button
+    //cy.contains(".appointment__card--show", "Archie Cohen").trigger("mouseover");
+
+    // 2. Clicks the edit button for the existing appointment with force option
+    cy.get("[alt=Edit]")
+      .first()
+      .click({ force: true });
+
+    // 3. Clears the input and Changes the name
+    cy.get('[data-testid=student-name-input]')
+      .clear()
+      .type("Lydia Miller-Jones");
+
+    // 4. Select another interviewer
+    cy.get("[alt='Tori Malcolm']").click();
+
+    // 5. Clicks the save button
+    cy.contains("Save").click();
+    // 6. Verify that the edit to the appointment is successful
+    cy.contains(".appointment__card--show", "Lydia Miller-Jones");
+    cy.contains(".appointment__card--show", "Tori Malcolm");
+
+  });
 
 });
 
